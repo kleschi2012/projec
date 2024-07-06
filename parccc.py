@@ -3,10 +3,7 @@ from bs4 import BeautifulSoup
 import psycopg2
 import telebot
 
-# Токен вашего бота
 telegram_token = '7211000175:AAH96nPs3z7KthCSarnqs1DtPz_R2J-9q1A'
-
-# Инициализация бота
 bot = telebot.TeleBot(telegram_token)
 
 
@@ -42,7 +39,7 @@ def initialize_db():
     """)
 
 
-    con.commit()                                            # фиксируем изменения в базе данных
+    con.commit()                                            #фиксируе изменения в базе данных
     con.close()                               # Закрываем соединение с базой данных
 
 def fetch_vacancies(url, specialty):
@@ -70,7 +67,7 @@ def fetch_vacancies(url, specialty):
         info = vacancy.find("span", class_="vacancies-section__item-format").text.strip() if vacancy.find("span", class_="vacancies-section__item-format") else ""
         location = vacancy.find("span", class_="vacancies-section__item-city").text.strip() if vacancy.find("span", class_="vacancies-section__item-city") else ""
 
-        # Проверяем, соответствует ли вакансия запросу специальности
+        # Проверяем соответствует ли вакансия запросу специальности
         if specialty.lower() in vacancy_name.lower():
             # Вставляем данные в таблицу PostgreSQL
             cur.execute(
